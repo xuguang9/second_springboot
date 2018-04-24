@@ -3,7 +3,8 @@ package xg.inclass.second_springboot;
 public class Student implements Comparable<Student> {
     //正式提交
     //还是没改变
-    //怎么要多一个push的操作啊,本地改了, 这里应该会冲突的
+    //怎么要多一个push的操作啊
+    //这是合并后的结果
     private int id;
     private String name;
     private int age;
