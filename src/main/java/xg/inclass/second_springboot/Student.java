@@ -2,6 +2,7 @@ package xg.inclass.second_springboot;
 
 public class Student implements Comparable<Student> {
     //正式提交
+    //还是没改变
     private int id;
     private String name;
     private int age;
