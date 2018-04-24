@@ -3,7 +3,8 @@ package xg.inclass.second_springboot;
 public class Student implements Comparable<Student> {
     //正式提交
     //还是没改变
-    //怎么要多一个push的操作啊
+    //怎么要多一个push的操作啊,知道了, 因为commit只是提交到本地, 还要push到远程
+    // 在远程修改了,pull到本地引发冲突
     private int id;
     private String name;
     private int age;
