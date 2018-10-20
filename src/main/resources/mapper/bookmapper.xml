@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xg.inclass.second_springboot.dao.BookDao">
+
+    <select id="getBook" resultType="xg.inclass.second_springboot.dto.Book">
+        SELECT
+        bk.author,
+        bk.description,
+        bk.isbn bookNum
+        FROM
+        boot.book bk
+        WHERE
+        bk.title = #{title}
+    </select>
+
+    <select id="getAllJobs" resultType="JobInfoDto" >
+        select ji.id id,
+            ji.cron cron
+        from job_info ji
+    </select>
+
+    <select id="getAllValues" resultType="ValueListDto">
+        select * from value_list vl
+    </select>
+
+    <select id="getValueByKey" resultType="ValueListDto" >
+        select * from value_list vl
+        where vl.`key`= #{key}
+    </select>
+
+    <select id="getBookById" parameterType="Long" resultType="xg.inclass.second_springboot.dto.Book">
+        SELECT
+            bk.author,
+            bk.description,
+            bk.isbn bookNum,
+          <!-- 使用自定义的TypeHandle,把jdbc类型映射到java类型,需要将列取别名bookStatus,别名同属性名,
+            这样用内省才会找到TypeHandle -->
+            bk.status bookStatus
+        FROM
+            boot.book bk
+        WHERE
+            bk.id = #{id}
+    </select>
+
+    <select id="countBooks" resultType="_int">
+        SELECT
+            count(*)
+        FROM
+            book
+    </select>
+
+    <update id="updateBookById">
+        update book bk
+        set bk.description='12'
+        <if test="id != null and id !='' ">
+           ,bk.reader='03'
+        </if>
+        WHERE
+        bk.id=1
+    </update>
+
+    <!--<insert id="saveBook" parameterType="BookStatus" >-->
+    <!--</insert>-->
+    
+</mapper>

@@ -14,7 +14,9 @@
                 <pattern>${PATTERN}</pattern>
             </encoder>
         </appender>
-        <logger name="com.light.springboot" level="debug"/>
+        <logger name="com.light.springboot" level="debug">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>
@@ -22,10 +24,15 @@
 
     <!-- 测试环境 -->
     <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
         <!-- 每天产生一个文件 -->
         <appender name="TEST-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
-          <!--  <file>${TEST_FILE_PATH}</file>-->
+            <!--  <file>${TEST_FILE_PATH}</file>-->
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- 文件名称 -->
                 <fileNamePattern>${TEST_FILE_PATH}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -36,26 +43,19 @@
                 <pattern>${PATTERN}</pattern>
             </layout>
         </appender>
+        <!-- mybatis sql日志的打印 T00011 -->
+        <logger name="xg.inclass.second_springboot.dao" level="debug"/>
+        <logger name="java.sql" level="debug">
+            <appender-ref ref="TEST-FILE"/>
+        </logger>
         <root level="info">
+
+            <appender-ref ref="CONSOLE"/>
             <appender-ref ref="TEST-FILE"/>
         </root>
     </springProfile>
 
-    <!-- 生产环境 -->
-    <springProfile name="prod">
-        <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${PRO_FILE_PATH}</file>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${PRO_FILE_PATH}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
-                <MaxHistory>100</MaxHistory>
-            </rollingPolicy>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>${PATTERN}</pattern>
-            </layout>
-        </appender>
-        <root level="warn">
-            <appender-ref ref="PROD_FILE"/>
-        </root>
-    </springProfile>
+
+
 
 </configuration>

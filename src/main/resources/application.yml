@@ -1,0 +1,55 @@
+#激活开发环境
+spring:
+  profiles:
+    active: dev
+  datasource:
+    # 使用jndi数据源
+    #jndi-name: java:comp/env/jdbc/mydatasource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/boot
+    username: root
+    password: root
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 0
+  flyway:
+    locations: classpath:/db
+    baseline-on-migrate: true
+  config:
+    location: classpath:config/*.properties
+  thymeleaf:
+    cache: false
+  batch:
+    job:
+      enabled: false
+
+
+#mybatis配置位置
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  config-location: classpath:mybatis-config.xml
+
+
+#自定义配置
+myName: 光哥
+amazon:
+  associateId: xuguang
+
+#开启debug
+debug: false
+
+#日志
+logging:
+  pattern:
+    level: warn
+server:
+  port: 8081
+
+
+
+
+
+

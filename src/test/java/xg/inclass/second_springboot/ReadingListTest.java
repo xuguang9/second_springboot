@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
+import xg.inclass.second_springboot.dto.Book;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -71,12 +72,12 @@ public class ReadingListTest {
                 .param("description", "DESCRIPTION"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location", "/readingList"));
-        Book expectedBook = new Book();
+        Book expectedBook = new Book(1L,"xx");
         expectedBook.setId(7L);
         expectedBook.setReader("readingList");
         expectedBook.setTitle("BOOK TITLE");
         expectedBook.setAuthor("BOOK AUTHOR");
-        expectedBook.setIsbn("1234567890");
+        expectedBook.setBookNum("1234567890");
         expectedBook.setDescription("DESCRIPTION");
         mockMvc.perform(get("/readingList"))
                 .andExpect(status().isOk())
