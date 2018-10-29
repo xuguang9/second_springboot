@@ -48,6 +48,8 @@ spring:
 ###############本地环境
 spring:
   profiles: dev
+  application:
+    name: xuguang
 
 #####mybatis配置位置
 #mybatis:
@@ -79,7 +81,7 @@ logging:
 
 #端口
 server:
-  port: 8081
+  port: 1114
 
 
 #监控
@@ -95,17 +97,19 @@ server:
 ##########eureka T00065
 eureka:
   instance:
-    hostname: localhost
+    hostname: peer1
   client:
     register-with-eureka: false #不要向注册中心注册自己
     fetch-registry: false #禁止检索服务
-    service-url.defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+    service-url.defaultZone: http://peer2:1112/eureka
 
 
 ---
 ##################测试
 spring:
   profiles: test
+  application:
+    name: xuguang
 #mybatis配置位置
 #mybatis:
 #  mapper-locations: classpath:mapper/*.xml
@@ -129,8 +133,15 @@ logging:
   pattern:
     level: warn
 server:
-  port: 8083
+  port: 1112
 
-
+##########eureka T00065
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    register-with-eureka: false #不要向注册中心注册自己
+    fetch-registry: false #禁止检索服务
+    service-url.defaultZone: http://peer1:1114/eureka
 
 
