@@ -1,32 +1,111 @@
 #激活开发环境
+#T00078 注意:多环境用---隔开
 spring:
+
+  application:
+    name: xuguang
+
+  freemarker:
+    prefer-file-system-access: false
+
   profiles:
     active: dev
+
   datasource:
     # 使用jndi数据源
     #jndi-name: java:comp/env/jdbc/mydatasource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/boot
-    username: root
-    password: root
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: scott
+    password: Xg111111
+
   redis:
     database: 0
     host: 127.0.0.1
     port: 6379
     password:
     timeout: 0
+
   flyway:
     locations: classpath:/db
     baseline-on-migrate: true
+
   config:
     location: classpath:config/*.properties
+
   thymeleaf:
     cache: false
+
   batch:
     job:
       enabled: false
 
+  mvc:
+    servlet:
+      load-on-startup: 1
 
+---
+###############本地环境
+spring:
+  profiles: dev
+
+#####mybatis配置位置
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  config-location: classpath:mybatis-config.xml
+
+#鉴权 引入spring-boot-starter-security包
+#security:
+#  user:
+#    name: admin
+#    password: 123456
+
+#单个自定义配置
+myName: 光哥
+#对象自定义配置
+amazon:
+  associateId: xuguang
+  is-onsale: false
+  book:
+    name: "吴承恩"
+
+#开启debug
+debug: false
+
+#日志
+logging:
+  pattern:
+    level: warn
+
+#端口
+server:
+  port: 8081
+
+
+#监控
+#endpoints:
+#  actuator:
+#    enabled: true
+#management:
+#  security:
+#    enabled: true #如果是ture,而且引入了spring的鉴权包security包,那么访问actuator端点时,
+                   #就需要输入security配置的账号密码
+#    roles: ADMIN
+
+##########eureka T00065
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false #不要向注册中心注册自己
+    fetch-registry: false #禁止检索服务
+    service-url.defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+
+---
+##################测试
+spring:
+  profiles: test
 #mybatis配置位置
 #mybatis:
 #  mapper-locations: classpath:mapper/*.xml
@@ -35,8 +114,12 @@ spring:
 
 #自定义配置
 myName: 光哥
+
 amazon:
   associateId: xuguang
+  is-onsale: false
+  book:
+    name: "吴承恩"
 
 #开启debug
 debug: false
@@ -46,9 +129,7 @@ logging:
   pattern:
     level: warn
 server:
-  port: 8081
-
-
+  port: 8083
 
 
 
